@@ -91,29 +91,28 @@ function App() {
       {file && (
         <div className="flex flex-col md:flex-row h-screen px-2 md:px-8 bg-white mt-36 md:mt-16 rounded-3xl ">
           {/* Material Display (75%) */}
-          <div
-            className="w-full md:w-3/4 overflow-auto p-4"
-            onMouseUp={handleTextHighlight}
-            ref={contentRef}
-          >
-            {file.type === "application/pdf" && (
-              <Document
-                file={file}
-                onLoadSuccess={onDocumentLoadSuccess}
-              >
-                {Array.from(new Array(numPages), (el, index) => (
-                  <div key={`page_${index}`} className="mb-4" tabIndex={el}>
-                    <Page pageNumber={index + 1} width={800} />
-                  </div>
-                ))}
-              </Document>
-            )}
+        <div
+  className="w-full md:w-3/4 overflow-auto p-4"
+  onMouseUp={handleTextHighlight}   // for desktop
+  onTouchEnd={handleTextHighlight}  // for mobile
+  ref={contentRef}
+>
+  {file.type === "application/pdf" && (
+    <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
+      {Array.from(new Array(numPages), (el, index) => (
+        <div key={`page_${index}`} className="mb-4" id={el}>
+          <Page pageNumber={index + 1} width={800} />
+        </div>
+      ))}
+    </Document>
+  )}
 
-            {file.type ===
-              "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
-              <div className="whitespace-pre-wrap text-gray-800">{docContent}</div>
-            )}
-          </div>
+  {file.type ===
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
+    <div className="whitespace-pre-wrap text-gray-800">{docContent}</div>
+  )}
+</div>
+
 
           {/* AI Panel for Desktop */}
           <div className="hidden md:block w-1/4 p-4 overflow-auto border-l bg-white py-5 border-gray-200">
