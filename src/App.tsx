@@ -102,7 +102,7 @@ function App() {
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 {Array.from(new Array(numPages), (el, index) => (
-                  <div key={`page_${index}`} className="mb-4">
+                  <div key={`page_${index}`} className="mb-4" tabIndex={el}>
                     <Page pageNumber={index + 1} width={800} />
                   </div>
                 ))}
